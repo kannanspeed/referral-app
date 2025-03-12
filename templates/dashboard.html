@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - {{ username }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ username }}</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="stats">
+            <h2>Your Dashboard</h2>
+            <p>Referral Count: {{ referral_count }}</p>
+            <div class="referral-link">
+                <label>Your Referral Link:</label>
+                <input type="text" value="{{ referral_link }}" readonly>
+                <button onclick="navigator.clipboard.writeText('{{ referral_link }}')">Copy</button>
+                <button onclick="shareOnWhatsApp('{{ referral_link }}')" class="whatsapp-btn">Share on WhatsApp</button>
+            </div>
+            
+            <h3>People You Referred:</h3>
+            {% if referred_users %}
+                <table>
+                    <tr>
+                        <th>Username</th>
+                        <th>Referred On</th>
+                    </tr>
+                    {% for user in referred_users %}
+                        <tr>
+                            <td>{{ user[0] }}</td>
+                            <td>{{ user[1] }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>No referrals yet</p>
+            {% endif %}
+        </div>
+        
+        <a href="/activity/{{ user_id }}" class="button">View Activity</a>
+    </div>
+</body>
+<script>
+    function shareOnWhatsApp(link) {
+        const message = encodeURIComponent("Join me using my referral link: " + link);
+        const whatsappUrl = `https://wa.me/?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+    }
+</script>
+</html>

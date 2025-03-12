@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activity - {{ username }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Activity for {{ username }}</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="stats">
+            <p>Account Created: {{ created_at }}</p>
+            {% if referred_by %}
+                <p>You were referred by: {{ referred_by }}</p>
+            {% else %}
+                <p>You weren't referred by anyone</p>
+            {% endif %}
+        </div>
+        
+        <a href="/dashboard/{{ user_id }}" class="button">Back to Dashboard</a>
+    </div>
+</body>
+</html>
