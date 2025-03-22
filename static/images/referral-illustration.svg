@@ -1,0 +1,36 @@
+<svg width="500" height="400" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .small-circle { fill: #818cf8; }
+    .medium-circle { fill: #4f46e5; }
+    .large-circle { fill: #4338ca; }
+    .connector { stroke: #6b7280; stroke-width: 3; stroke-dasharray: 5, 5; }
+    .icon { fill: white; font-family: Arial; font-size: 24px; font-weight: bold; text-anchor: middle; }
+  </style>
+  
+  <!-- Background elements -->
+  <circle cx="250" cy="200" r="150" fill="#f9fafb" stroke="#e5e7eb" stroke-width="2" />
+  
+  <!-- Referral nodes -->
+  <circle cx="250" cy="120" r="50" class="medium-circle" />
+  <text x="250" y="130" class="icon">YOU</text>
+  
+  <circle cx="140" cy="230" r="40" class="small-circle" />
+  <text x="140" y="240" class="icon">R1</text>
+  
+  <circle cx="250" cy="280" r="40" class="small-circle" />
+  <text x="250" y="290" class="icon">R2</text>
+  
+  <circle cx="360" cy="230" r="40" class="small-circle" />
+  <text x="360" y="240" class="icon">R3</text>
+  
+  <!-- Connectors -->
+  <line x1="215" y1="155" x2="170" y2="200" class="connector" />
+  <line x1="250" y1="170" x2="250" y2="240" class="connector" />
+  <line x1="285" y1="155" x2="330" y2="200" class="connector" />
+  
+  <!-- Small decorative elements -->
+  <circle cx="100" cy="100" r="15" fill="#10b981" opacity="0.5" />
+  <circle cx="400" cy="100" r="10" fill="#f59e0b" opacity="0.5" />
+  <circle cx="100" cy="300" r="10" fill="#ef4444" opacity="0.5" />
+  <circle cx="400" cy="300" r="15" fill="#0ea5e9" opacity="0.5" />
+</svg> 

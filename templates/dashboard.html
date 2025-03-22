@@ -1,57 +1,111 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard - {{ username }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container">
+{% extends "base.html" %}
+
+{% block title %}Dashboard - {{ username }}{% endblock %}
+
+{% block content %}
+<section class="dashboard-container">
+    <div class="dashboard-header">
         <h1>Welcome, {{ username }}</h1>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="flash">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        
-        <div class="stats">
-            <h2>Your Dashboard</h2>
-            <p>Referral Count: {{ referral_count }}</p>
-            <div class="referral-link">
-                <label>Your Referral Link:</label>
-                <input type="text" value="{{ referral_link }}" readonly>
-                <button onclick="navigator.clipboard.writeText('{{ referral_link }}')">Copy</button>
-                <button onclick="shareOnWhatsApp('{{ referral_link }}')" class="whatsapp-btn">Share on WhatsApp</button>
+        <p class="last-updated">Your Referral Dashboard</p>
+    </div>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash-message">
+                    {{ message }}
+                    <button class="close-flash"><i class="fas fa-times"></i></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <div class="dashboard-overview">
+        <div class="overview-card total-referrals">
+            <div class="card-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="card-content">
+                <h3>Total Referrals</h3>
+                <p class="card-value">{{ referral_count }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dashboard-content">
+        <div class="content-section">
+            <div class="section-header">
+                <h2>Your Referral Link</h2>
             </div>
             
-            <h3>People You Referred:</h3>
-            {% if referred_users %}
-                <table>
-                    <tr>
-                        <th>Username</th>
-                        <th>Referred On</th>
-                    </tr>
-                    {% for user in referred_users %}
-                        <tr>
-                            <td>{{ user[0] }}</td>
-                            <td>{{ user[1] }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% else %}
-                <p>No referrals yet</p>
-            {% endif %}
+            <div class="referral-code-container">
+                <div class="referral-code">
+                    <span>{{ referral_link }}</span>
+                    <button onclick="navigator.clipboard.writeText('{{ referral_link }}')" class="btn btn-primary btn-small">Copy</button>
+                </div>
+                <p class="copy-message" id="copyMessage">Link copied to clipboard!</p>
+            </div>
+            
+            <div class="share-options">
+                <button onclick="shareOnWhatsApp('{{ referral_link }}')" class="share-btn whatsapp-share">
+                    <i class="fab fa-whatsapp"></i>
+                    Share on WhatsApp
+                </button>
+            </div>
         </div>
         
-        <a href="/activity/{{ user_id }}" class="button">View Activity</a>
+        <div class="content-section">
+            <div class="section-header">
+                <h2>People You Referred</h2>
+            </div>
+            
+            {% if referred_users %}
+                <div class="referrals-table">
+                    <div class="table-header">
+                        <div class="header-cell">Username</div>
+                        <div class="header-cell">Referred On</div>
+                    </div>
+                    
+                    {% for user in referred_users %}
+                        <div class="table-row">
+                            <div class="table-cell">{{ user[0] }}</div>
+                            <div class="table-cell">{{ user[1] }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-users-slash"></i>
+                    </div>
+                    <p>No referrals yet. Share your link to start earning rewards!</p>
+                </div>
+            {% endif %}
+        </div>
     </div>
-</body>
+    
+    <div class="content-section">
+        <a href="/activity/{{ user_id }}" class="btn btn-secondary">View Activity</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
 <script>
     function shareOnWhatsApp(link) {
         const message = encodeURIComponent("Join me using my referral link: " + link);
         const whatsappUrl = `https://wa.me/?text=${message}`;
         window.open(whatsappUrl, '_blank');
     }
+    
+    // Copy link functionality
+    document.querySelector('.referral-code button').addEventListener('click', function() {
+        const copyMessage = document.getElementById('copyMessage');
+        copyMessage.classList.add('active');
+        
+        setTimeout(function() {
+            copyMessage.classList.remove('active');
+        }, 2000);
+    });
 </script>
-</html>
+{% endblock %}

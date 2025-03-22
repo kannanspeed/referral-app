@@ -1,30 +1,51 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Activity - {{ username }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container">
+{% extends "base.html" %}
+
+{% block title %}Activity - {{ username }}{% endblock %}
+
+{% block content %}
+<section class="dashboard-container">
+    <div class="dashboard-header">
         <h1>Activity for {{ username }}</h1>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="flash">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        
-        <div class="stats">
-            <p>Account Created: {{ created_at }}</p>
-            {% if referred_by %}
-                <p>You were referred by: {{ referred_by }}</p>
-            {% else %}
-                <p>You weren't referred by anyone</p>
-            {% endif %}
-        </div>
-        
-        <a href="/dashboard/{{ user_id }}" class="button">Back to Dashboard</a>
+        <p class="last-updated">Account information and referral history</p>
     </div>
-</body>
-</html>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash-message">
+                    {{ message }}
+                    <button class="close-flash"><i class="fas fa-times"></i></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <div class="dashboard-content">
+        <div class="content-section">
+            <div class="section-header">
+                <h2>Account Information</h2>
+            </div>
+            
+            <div class="stats card">
+                <div class="info-group">
+                    <label>Account Created:</label>
+                    <span>{{ created_at }}</span>
+                </div>
+                
+                <div class="info-group">
+                    <label>Referral Status:</label>
+                    {% if referred_by %}
+                        <span>You were referred by: <strong>{{ referred_by }}</strong></span>
+                    {% else %}
+                        <span>You weren't referred by anyone</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content-section">
+        <a href="/dashboard/{{ user_id }}" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+</section>
+{% endblock %}

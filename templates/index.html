@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}Onference - Grow Your Network{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Share More, Save More</h1>
+        <p class="hero-subtitle">Refer TLH 2.0 to your peers & get <strong>10%</strong> refund on your TLH 2.0 enrollment fees!</p>
+        
+        <!-- <div class="hero-cta">
+            <a href="/register" class="btn btn-primary btn-large">Get Started</a>
+        </div> -->
+    </div>
+    
+    <div class="hero-image">
+        <img src="{{ url_for('static', filename='images/referral-illustration.svg') }}" alt="Referral Illustration">
+    </div>
+</section>
+
+<!-- Main referral functionality section -->
+<section class="referral-function">
+    <div class="section-header">
+        <!-- <h2>Start Referring Now</h2> -->
+        <!-- <p>Register to get your unique referral link</p> -->
+    </div>
+    
+    <div class="function-container">
+        <div class="registration-form">
+            <form method="POST" action="/register">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <input type="hidden" name="ref" value="{{ ref }}">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </form>
+        </div>
+        
+        <div class="form-description">
+            <!-- <h3>Why Register?</h3> -->
+            <ul>
+                <!-- <li><i class="fas fa-check"></i> Get a unique referral link</li>
+                <li><i class="fas fa-check"></i> Track your referrals easily</li>
+                <li><i class="fas fa-check"></i> Earn rewards for each successful referral</li> -->
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works">
+    <div class="section-header">
+        <h2>How It Works?</h2>
+    </div>
+    
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">1</div>
+            <h3>Get Your Link</h3>
+            <p>All TLH 2.0 delegates will receive a unique referral link</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-number">2</div>
+            <h3>Invite Your Peers</h3>
+            <p>Share your link with peers who'd benefit from TLH 2.0</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-number">3</div>
+            <h3>Earn Rewards</h3>
+            <p>When your peers complete enrollment through your link, you both win!</p>
+        </div>
+    </div>
+</section>
+
+<section class="rewards-section">
+    <div class="section-header">
+        <h2>🎁 Rewards For You</h2>
+    </div>
+    
+    <div class="rewards-list">
+        <div class="reward-item">
+            <div class="reward-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <div class="reward-content">
+                <h3>For 2 Successful Referrals</h3>
+                <p>→ Get 10% refund on the TLH 2.0 enrollment fee you paid (Processed within 30 days)</p>
+            </div>
+        </div>
+        
+        <div class="reward-item">
+            <div class="reward-icon">
+                <i class="fas fa-percentage"></i>
+            </div>
+            <div class="reward-content">
+                <h3>More than 5 Referrals</h3>
+                <p>→ 10% refunds on enrollment fee<br>
+                   → Plus, 10% discount coupon for your next online CME/course purchase on Onference<br>
+                   (Coupon valid for 6 months; Max value Rs. 750)</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="peers-section">
+    <div class="section-header">
+        <h2>🤝 What Will Your Peers Get?</h2>
+    </div>
+    
+    <div class="rewards-list">
+        <div class="reward-item">
+            <div class="reward-icon">
+                <i class="fas fa-tag"></i>
+            </div>
+            <div class="reward-content">
+                <p>Every referee using your link receives an instant 10% discount on their TLH 2.0 enrollment.</p>
+                <p><strong>Win-win!</strong></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="terms-section">
+    <div class="section-header">
+        <h2>📜 Terms & Conditions</h2>
+        <p>Who can refer? Only TLH 2.0 enrolled delegates.</p>
+        <p>This referral program lasts for 7 days only.</p>
+    </div>
+    
+    <div class="terms-list">
+        <div class="term-item">
+            <div class="term-number">1</div>
+            <p><strong>Exclusions:</strong> Onference Premium members are not eligible for referral program benefits. The referral program benefits are not applicable to purchases made via iPhone apps.</p>
+        </div>
+        
+        <div class="term-item">
+            <div class="term-number">2</div>
+            <p><strong>No Double Discounts:</strong> Referral discount cannot be combined with other ongoing offers/discounts.</p>
+        </div>
+        
+        <div class="term-item">
+            <div class="term-number">3</div>
+            <p><strong>Refund Timeline:</strong> Eligible refunds will be processed within 30 days from the date of achieving the required successful conversions.</p>
+        </div>
+        
+        <div class="term-item">
+            <div class="term-number">4</div>
+            <p><strong>Fair Use Policy:</strong> Misuse (e.g., self-referrals, fake sign-ups) will result in disqualification.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>Ready to Start Referring?</h2>
+        <p>Join thousands of users who are already earning rewards through our referral program.</p>
+        
+        <div class="cta-buttons">
+            <a href="/register" class="btn btn-primary">Get Started Now</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Any additional JavaScript can go here
+    });
+</script>
+{% endblock %} 
